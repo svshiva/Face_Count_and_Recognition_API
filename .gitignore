@@ -1,0 +1,8 @@
+# The weights of the trained models
+model-weights/
+*.weights
+*.h5
+
+/images
+/__pycache__
+/.vscode
