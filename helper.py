@@ -3,6 +3,13 @@ import numpy as np
 import cv2
 from urllib.request import urlopen
 import face_recognition
+from PIL import Image
+from io import BytesIO
+
+def byteImg_to_cvImg(byteImg):
+    image= Image.open(BytesIO(byteImg))
+    image = np.array(image)[...,:3]
+    return image
 
 def img64_to_cvImg(img64):
     img64=img64.replace('data:image/jpeg;base64,','')
