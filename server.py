@@ -65,7 +65,7 @@ async def face_validate_path(data: Data):
 
 #  First image will be as URL, 2nd will be as File
 
-@app.post("/api/validate_url_form")
+@app.post("/api/face_validate_url_file")
 async def create_file(test_image: UploadFile, id: str = Form(), image: str=Form()):
     # image=image.file.read()
     test_image = await test_image.read()
@@ -73,6 +73,18 @@ async def create_file(test_image: UploadFile, id: str = Form(), image: str=Form(
     result = str(result[0])
     distance = str(distance[0])
     return {"id": id, "result": result, "distance": distance}
+
+
+# First both images will be as File
+@app.post("/api/face_validate_file")
+async def create_file(image: UploadFile,test_image: UploadFile, id: str = Form()):
+    image=await image.read()
+    test_image = await test_image.read()
+    result, distance = predict(byteImg_to_cvImg(image), byteImg_to_cvImg( test_image))
+    result = str(result[0])
+    distance = str(distance[0])
+    return {"id": id, "result": result, "distance": distance}
+
 
 
 

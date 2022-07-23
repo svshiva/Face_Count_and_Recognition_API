@@ -71,7 +71,7 @@ Send 2 parameters in json format.
         "image": "path//to//image"
     }
 
->Note Remeber to use double forward slashes in path.
+>Note: Remember to use double forward slashes in path.
 ---
 ---
 ## 2. Face Validation API
@@ -105,4 +105,33 @@ Call the api with:
         "test_image": "path//to//test_image"
     }
 
->Note Remeber to use double forward slashes in path.
+>Note: Remember to use double forward slashes in path.
+
+
+---
+# 2 NEW FUNCTIONALITY ADDED
+
+
+### 1) __Images as URL, test_image as file__
+
+
+    /api/face_validate_url_file
+
+*Send 3 parameters* in form data.
+
+    id: <refrence id for image>
+    image: <known_img_url>
+    test_image: image as file
+
+---
+
+### 2) __Both image and test_image as file__
+    
+        /api/face_validate_file
+
+
+*Send 3 parameters* in form data.
+        
+            id: <refrence id for image>
+            image: image as file
+            test_image: image as file
