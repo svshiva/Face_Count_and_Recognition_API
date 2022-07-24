@@ -20,7 +20,20 @@ net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
 app = FastAPI()
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins = ["*"],
+#     allow_credentials = True,
+#     allow_methods = ["*"],
+#     allow_headers = ["*"],
+# )
+# app.add_middleware(HTTPSRedirectMiddleware)
 
+
+
+@app.get('/')
+async def readRoot():
+    return { 'message': 'Server up and running.' }
 
 @app.post("/api/face_count_url")
 async def face_count_url(info: Request):
@@ -85,6 +98,14 @@ async def create_file(image: UploadFile,test_image: UploadFile, id: str = Form()
     distance = str(distance[0])
     return {"id": id, "result": result, "distance": distance}
 
+@app.post('/api/face-validation')
+async def face_validation(test_image: UploadFile, id: str = Form(default="Null"), image: str = Form(default="Null")):
+    test_image = await test_image.read()
+    test_image = byteImg_to_cvImg(test_image)
+    result,distance = predict(get_image_from_url(image), test_image)
+    result = bool(result[0])
+    distance = str(distance[0])
+    return {'id': id, 'count': count_faces(test_image, net), 'result': result, 'distance': distance}
 
 
 
