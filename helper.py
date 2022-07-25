@@ -38,4 +38,4 @@ def predict(image,test_image):
         distance = face_recognition.face_distance([face_encodings],face_encodings_test)
         return result,distance
     except:
-        return [False],["No Face Detected"]  
+        return [False],["No Face detected"]  
