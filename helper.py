@@ -31,8 +31,11 @@ def get_image_from_path(image_path):
 def predict(image,test_image):
     image=cv2.cvtColor(image,cv2.COLOR_BGR2RGB)
     test_image=cv2.cvtColor(test_image,cv2.COLOR_BGR2RGB)
-    face_encodings=face_recognition.face_encodings(image)[0]
-    face_encodings_test=face_recognition.face_encodings(test_image)[0]
-    result=face_recognition.compare_faces([face_encodings],face_encodings_test)
-    distance = face_recognition.face_distance([face_encodings],face_encodings_test)
-    return result,distance
+    try:
+        face_encodings=face_recognition.face_encodings(image)[0]
+        face_encodings_test=face_recognition.face_encodings(test_image)[0]
+        result=face_recognition.compare_faces([face_encodings],face_encodings_test)
+        distance = face_recognition.face_distance([face_encodings],face_encodings_test)
+        return result,distance
+    except:
+        return [False],[0]    
